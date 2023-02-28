@@ -41,12 +41,27 @@
                 $this->head = &$node;
             }
             else{
-                //$TraverseNode->prev = $TraverseNode;
+
                 $node->prev = $TraverseNode;
                 $TraverseNode->next = &$node;
                 
-                //$TraverseNode->prev = $this->head;
-                //$this->head->next = $TraverseNode;
+            }
+            
+        }
+
+        function insertafter($data,$after){
+            $node = new Node($data);
+            $TraverseNode = $this->TraverseListTillVal($after);
+            
+            if(is_null($TraverseNode)){
+                $this->head = &$node;
+            }
+            else{
+                
+                $node->next = $TraverseNode->next;
+                $node->prev = $TraverseNode;
+                $TraverseNode->next = &$node;
+                
             }
             
         }
@@ -58,13 +73,23 @@
             }
             return $currentNode;
         }
+
+        function TraverseListTillVal($value){
+            $currentNode = $this->head;
+            while($currentNode && $currentNode->data != $value ){
+                $currentNode = $currentNode->next;
+            }
+            return $currentNode;
+        }
     }
 
     $LL = new LinkedList();
-    $LL->insertatEnd(2);
-    $LL->insertatEnd(3);
-    $LL->insertatEnd(4);
-    $LL->insertatEnd(5);
+    $LL->insertafter(2,null);
+    $LL->insertafter(3,2);
+    $LL->insertafter(4,3);
+    $LL->insertafter(5,2);
+    // $LL->insertatEnd(4);
+    // $LL->insertatEnd(5);
     
     echo '<pre>';
     print_r($LL);
